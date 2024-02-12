@@ -26,15 +26,11 @@ We appreciate your contributions!
 2. 
    <!-- Add more projects here -->
 
-## Project 1: ProjectName
+## Project 1: Calculator
 
 - **Description:** Build a basic command-line calculator that can perform addition, subtraction, multiplication, and division.
 - **Link:** [GitHub Repository](https://github.com/Goproject4beginners/calculator)
 - **Skills Required:** Golang.
-
-## Project 2: ProjectName
-
-
 <!-- Add more projects with the same format -->
 
 ## Code of Conduct
