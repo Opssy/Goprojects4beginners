@@ -23,13 +23,19 @@ We appreciate your contributions!
 ## Table of Contents
 
 1. [Project 1: Calculator](#project-1-calculator)
-2. 
+2. [Project 1: Simple guessing game](#project-1-simple-guessing-game)
    <!-- Add more projects here -->
 
 ## Project 1: Calculator
 
 - **Description:** Build a basic command-line calculator that can perform addition, subtraction, multiplication, and division.
 - **Link:** [GitHub Repository](https://github.com/Opssy/Goprojects4beginners/tree/main/calculator)
+- **Skills Required:** Golang.
+
+  ## Project 2: Simple Guessing Game
+
+- **Description:** Build a “Guess the number” game in Go. In this game, the program will generate a random integer between 1 and 1000, and then prompt the player to enter a guess.
+- **Link:** [GitHub Repository]()
 - **Skills Required:** Golang.
 <!-- Add more projects with the same format -->
 
