@@ -4,28 +4,29 @@ package main
 import "fmt"
 import "math/rand"
 import "time"
+
 func main(){
+	fmt.Println("Guessing game")
 
-	min, max := 1, 1000
-	var guess int 
-	rand.Seed(time.Now().UnixNano())
-	
-	guess = rand.Intn(max - min) + min
 
-	fmt.Println("Enter your guess")
-	fmt.Scan(&guess)
+	//random generator
+	source := rand.NewSource(time.Now().UnixNano())
+	r := rand.New(source)
+	secretNumber := r.Intn(10)
 
-	if guess == guess {
-		fmt.Println("You win")
-	}  
-	if guess != guess{
-		fmt.Println("You losen")
+	var guess int
+    
+	for{
+	   fmt.Println("Enter your guess number")
+		fmt.Scan(&guess)
+
+		if guess < secretNumber{
+			fmt.Println("too big")
+		} else if guess > secretNumber{
+		fmt.Println("Too small ")
+		} else{
+		fmt.println("you win!!!!!!")
+		break
+		}
 	}
-	if guess > guess{
-	  fmt.Println("Too high")
-	}
-	if guess < guess{
-	  fmt.Println("Too low")
-	}
-
 }
