@@ -35,7 +35,7 @@ We appreciate your contributions!
   ## Project 2: Simple Guessing Game
 
 - **Description:** Build a “Guess the number” game in Go. In this game, the program will generate a random integer between 1 and 1000, and then prompt the player to enter a guess.
-- **Link:** [GitHub Repository]()
+- **Link:** [GitHub Repository](https://github.com/Opssy/Goprojects4beginners/tree/main/2.guess-number)
 - **Skills Required:** Golang.
 <!-- Add more projects with the same format -->
 
