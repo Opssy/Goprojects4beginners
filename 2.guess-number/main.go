@@ -25,7 +25,7 @@ func main(){
 		} else if guess > secretNumber{
 		fmt.Println("Too small ")
 		} else{
-		fmt.println("you win!!!!!!")
+		fmt.Println("you win!!!!!!")
 		break
 		}
 	}
