@@ -6,15 +6,20 @@ func calculator(){
 	 
 	var operator string;
 	fmt.Println("Enter operator: +, -, *, /")
-	fmt.Scan(&operator)
-
-
+	_, err  := fmt.Scan(&operator)
+	if err != nil {
+		fmt.Println("Error reading operator:", err)
+		return
+	}
 	var a,b float64
-
 	fmt.Println("Enter your two digits: ")
-	fmt.Scan(&a, &b)
-
-	switch choice{
+	_, err = fmt.Scan(&a, &b)
+	if err != nil {
+		fmt.Println("Error reading digits:", err)
+		return
+	}
+	
+	switch operator {
 	case "+":
 		fmt.Println(a + b)
 	case "-":
@@ -26,4 +31,8 @@ func calculator(){
 	 default:
         fmt.Println("Invalid operator")
 	}
+}
+
+func main(){
+	calculator()
 }
