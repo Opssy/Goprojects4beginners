@@ -23,7 +23,9 @@ We appreciate your contributions!
 ## Table of Contents
 
 1. [Project 1: Calculator](#project-1-calculator)
-2. [Project 1: Simple guessing game](#project-1-simple-guessing-game)
+2. [Project 2: Simple guessing game](#project-2-simple-guessing-game)
+3. [Project 3: todo-list](#project-3-todo-list)
+4. [Project 4: Web-scraper](#project-4-web-scraper)
    <!-- Add more projects here -->
 
 ## Project 1: Calculator
