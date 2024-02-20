@@ -38,10 +38,16 @@ We appreciate your contributions!
 - **Link:** [GitHub Repository](https://github.com/Opssy/Goprojects4beginners/tree/main/2.guess-number)
 - **Skills Required:** Golang.
 
-  ## Project 2: Todo list
+  ## Project 3: Todo list
 
 - **Description:** Create a command-line to-do list application where users can add, remove, and view tasks.
 - **Link:** [GitHub Repository](https://github.com/Opssy/Goprojects4beginners/tree/main/3.todo-list)
+- **Skills Required:** Golang.
+  
+    ## Project 4: Web Scraper
+
+- **Description:** Build a basic web scraper that extracts information from a website.
+- **Link:** [GitHub Repository](https://github.com/Opssy/Goprojects4beginners/tree/main/4.web-scraper)
 - **Skills Required:** Golang.
 <!-- Add more projects with the same format -->
 
