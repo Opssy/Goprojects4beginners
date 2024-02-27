@@ -49,7 +49,7 @@ We appreciate your contributions!
     ## Project 4: Web Scraper
 
 - **Description:** Build a basic web scraper that extracts information from a website.
-- **Link:** [GitHub Repository](https://github.com/Opssy/Goprojects4beginners/tree/main/4.web-scraper)
+- **Link:** [GitHub Repository](https://github.com/Opssy/Goprojects4beginners/tree/main/basic-project/4.web-scrapping)
 - **Skills Required:** Golang.
 <!-- Add more projects with the same format -->
 
