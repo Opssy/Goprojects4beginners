@@ -47,3 +47,42 @@ func race(car string){
 		time.Sleep(1 * time.Second)
 	}
 }
+
+//channels
+// Syntax to declare a channel
+// ch := make(chan Type)
+// ch <- value // send value to the channel
+// value := <- ch // receive value from the channel
+
+
+func simpleChannel(){
+	// Create an unbuffered channel of type int
+	c := make(chan int)
+
+	// Create a goroutine that sends a value to the channel
+	go func() {
+		c <- 42
+	}()
+
+	// Receive the value from the channel
+	value := <-c
+
+	fmt.Println("Received value:", value)
+}
+
+//buffered channel 
+
+func BufferedChannel(){
+	// Create a buffered channel of type int with capacity of 5
+	c := make(chan int, 5)
+
+	// Send 5 values to the channel
+	for i := 0; i < 5; i++ {
+		c <- i
+	}
+
+	// Receive and print the values from the channel
+	for i := 0; i < 5; i++ {
+		fmt.Println(<-c)
+	}
+}
