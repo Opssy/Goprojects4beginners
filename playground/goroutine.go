@@ -3,6 +3,7 @@ package main
 import (
 	"fmt"
 	"math/rand"
+	"sync"
 	"time"
 )
 
@@ -188,4 +189,30 @@ for {
 }
 
 fmt.Println("All cars have finished the race!")
+}
+
+//Waiting group 
+
+
+func display(method string) {
+    for i := 0; i < 3; i++ {
+        fmt.Println(method, ":", i)
+    }
+}
+
+func waitinggroup() {
+	
+    var wg sync.WaitGroup
+    wg.Add(1)
+
+    // normal function call
+    display("direct")
+
+    // goroutine function call
+    go func() {
+        display("goroutine")
+        wg.Done()
+    }()
+    wg.Wait()
+
 }
