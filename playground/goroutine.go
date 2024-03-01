@@ -3,6 +3,7 @@ package main
 import (
 	"fmt"
 	"math/rand"
+	"sync"
 	"time"
 )
 
@@ -130,5 +131,88 @@ func startRace(cars chan string) {
     time.Sleep(time.Duration(1+rand.Intn(5)) * time.Second)
     }
    fmt.Println("All cars have finished the race!")
+
+}
+
+//with select
+
+func selectRace(){
+	// Create two channels for the cars
+	BMW, Honda := make(chan string),make(chan string)
+
+	// Start two Goroutines that add cars to the channels
+	go addCar("BMW", BMW)
+	go addCar("Honda", Honda)
+
+      // Start a Goroutine that simulates the race
+    go startRaceWithSelect(BMW,Honda)
+
+    // Wait for the race to finish
+	time.Sleep(5 * time.Second)
+
+	fmt.Println("Race over!")
+}
+
+func addCarWithChan(name string, cars chan <- string){
+   for i := 0; i < 5; i++ {
+	time.Sleep(time.Duration(rand.Intn(5)) * time.Second)
+    cars <- name
+    fmt.Println(name, "added to the race!")
+   }
+   close(cars)
+}
+
+func startRaceWithSelect(BMW <-chan string, Honda <-chan string) {
+for {
+    select {
+    case car, ok := <- BMW:
+        if !ok {
+            fmt.Println("BMW channel closed!")
+            BMW = nil
+            break
+        }
+        fmt.Println(car, "is racing...")
+
+    case car, ok := <-Honda:
+        if !ok {
+            fmt.Println("Lamborghini channel closed!")
+            Honda = nil
+            break
+        }
+        fmt.Println(car, "is racing...")
+    }
+
+    if BMW == nil && Honda == nil {
+        break
+    }
+    time.Sleep(time.Second)
+}
+
+fmt.Println("All cars have finished the race!")
+}
+
+//Waiting group 
+
+
+func display(method string) {
+    for i := 0; i < 3; i++ {
+        fmt.Println(method, ":", i)
+    }
+}
+
+func waitinggroup() {
+	
+    var wg sync.WaitGroup
+    wg.Add(1)
+
+    // normal function call
+    display("direct")
+
+    // goroutine function call
+    go func() {
+        display("goroutine")
+        wg.Done()
+    }()
+    wg.Wait()
 
 }
