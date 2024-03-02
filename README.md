@@ -54,7 +54,7 @@ We appreciate your contributions!
 - **Link:** [GitHub Repository](https://github.com/Opssy/Goprojects4beginners/tree/main/basic-project/4.web-scrapping)
 - **Skills Required:** Golang.
 
-   ## Project 4: Web Scraper
+   ## Project 5: Restful Api
 
 - **Description:** Create a RESTful API using the net/http package. Implement basic CRUD operations.
 - **Link:** [GitHub Repository](https://github.com/Opssy/Goprojects4beginners/tree/main/)
