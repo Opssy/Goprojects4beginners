@@ -2,6 +2,7 @@ package main
 
 import (
 	"encoding/json"
+	"log"
 	"net/http"
 )
 
@@ -80,8 +81,6 @@ func main(){
 	http.HandleFunc("/books/1", GetBookById)
 	http.HandleFunc("/books/1", UpdateBook)
 	http.HandleFunc("/books/1", DeleteBook)
-	http.ListenAndServe(":8080", nil)
+
+	log.Fatal(http.ListenAndServe(":8080", nil))
 }
-// func main(){
-// 	func
-// }
