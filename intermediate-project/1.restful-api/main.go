@@ -4,6 +4,8 @@ import (
 	"encoding/json"
 	"log"
 	"net/http"
+	"strconv"
+	"sync"
 )
 
 type Book struct{
@@ -18,69 +20,103 @@ type Company struct{
 	Phone string `json:"phone"`
 }
 
-var books []Book
+var(
+	books = make(map[int]Book)
+	booksMutex sync.RWMutex
+)
 
 func CreateBook(w http.ResponseWriter, r *http.Request){
-	var book Book 
+	booksMutex.Lock()
+	defer booksMutex.Unlock()
+	var book Book
 	_ = json.NewDecoder(r.Body).Decode(&book)
-	books = append(books, book)
+	books[book.ID] = book
 	json.NewEncoder(w).Encode(book)
 	w.WriteHeader(http.StatusCreated)
 }
 
 func GetBook(w http.ResponseWriter, r *http.Request){
-	json.NewEncoder(w).Encode(books)
-	for _, book := range books{
-	    json.NewEncoder(w).Encode(book)
+	booksMutex.RLock()
+	defer booksMutex.RLock()
+	if len(books) == 0 {
+		log.Println("No books found")
+		w.WriteHeader(http.StatusNotFound)
+		return
 	}
+	json.NewEncoder(w).Encode(books)
 	w.Header().Set("Content-Type", "application/json")
 	w.WriteHeader(http.StatusOK)
 }
-func GetBookById(w http.ResponseWriter, r *http.Request){
-	for _, book := range books{
-		if book.ID == 1{
-			json.NewEncoder(w).Encode(book)
-			return
-		}
-	}
-	w.WriteHeader(http.StatusOK)
 
+func GetBookById(w http.ResponseWriter, r *http.Request){
+	booksMutex.RLock()
+	defer booksMutex.RLock()
+	if len(books) == 0 {
+		log.Println("No books found")
+		w.WriteHeader(http.StatusNotFound)
+		return
+	}
+	id := r.URL.Query().Get("id")
+	book, ok := books[id]
+	if !ok {
+		log.Println("Book not found")
+		w.WriteHeader(http.StatusNotFound)
+		return
+	}
+	json.NewEncoder(w).Encode(book)
+	w.Header().Set("Content-Type", "application/json")
+	w.WriteHeader(http.StatusOK)
 }
 func UpdateBook(w http.ResponseWriter, r *http.Request){
-	var book Book 
-	_ = json.NewDecoder(r.Body).Decode(&book)
-	for i, b := range books{
-		if b.ID == book.ID{
-			books[i] = book
-			json.NewEncoder(w).Encode(book)
-			return
-		}
-		w.WriteHeader(http.StatusNotFound)
+var updateBook Book
+	_ = json.NewDecoder(r.Body).Decode(&updateBook)
+	booksMutex.Lock()
+	defer booksMutex.Unlock()
 
+	_, ok := books[updateBook.ID]
+	if !ok {
+		log.Println("Book not found")
+		w.WriteHeader(http.StatusNotFound)
+		return
 	}
+	books[updateBook.ID] = updateBook
+   
+	w.Header().Set("Content-Type", "application/json")
+	w.WriteHeader(http.StatusOK)
+	json.NewEncoder(w).Encode(updateBook)
 }
 func DeleteBook(w http.ResponseWriter, r *http.Request){
-	var book Book
-	_ = json.NewDecoder(r.Body).Decode(&book)
-	for i, b := range books{
-		if b.ID == book.ID{
-			books = append(books[:i], books[i+1:]...)
-			json.NewEncoder(w).Encode(book)
+	booksMutex.Lock()
+	defer booksMutex.Unlock()
+
+	id := r.URL.Query().Get("id")
+	_, ok := books[id]
+	if !ok {
+		log.Println("Book not found")
+		w.WriteHeader(http.StatusNotFound)
+		return
+	}
+
+	intID, err := strconv.Atoi(id)
+		if err != nil {
+			log.Println("Invalid ID format")
+			w.WriteHeader(http.StatusBadRequest)
 			return
 		}
-		w.WriteHeader(http.StatusNotFound)
 
-	}
-	w.WriteHeader(http.StatusNotFound)
+	delete(books, intID)
+	w.WriteHeader(http.StatusOK)
+		
 }
 func main(){
-	books = append(books, Book{ID: 1, Title: "Harry Potter", Author: "JK Rowling", Publisher: &Company{Name: "Bloomsbury", Address: "London", Phone: "1234567890"}})
-	books = append(books, Book{ID: 2, Title: "Lord of the Rings", Author: "Tolkien", Publisher: &Company{Name: "Allen & Unwin", Address: "New York", Phone: "0987654321"}})
+	books[1] = Book{ID: 1, Title: "Harry Potter", Author: "JK Rowling", Publisher: &Company{Name: "Bloomsbury", Address: "London", Phone: "1234567890"}}
+	books[2] = Book{ID: 2, Title: "Lord of the Rings", Author: "Tolkien", Publisher: &Company{Name: "Allen & Unwin", Address: "New York", Phone: "0987654321"}}
+
 	http.HandleFunc("/books", CreateBook)
 	http.HandleFunc("/books", GetBook)
-	http.HandleFunc("/books/1", GetBookById)
-	http.HandleFunc("/books/1", UpdateBook)
-	http.HandleFunc("/books/1", DeleteBook)
+	http.HandleFunc("/books/id", GetBookById)
+	http.HandleFunc("/books/id", UpdateBook)
+	http.HandleFunc("/books/id", DeleteBook)
 
 	log.Fatal(http.ListenAndServe(":8080", nil))
 }
