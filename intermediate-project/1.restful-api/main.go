@@ -49,8 +49,8 @@ func GetBook(w http.ResponseWriter, r *http.Request){
 }
 
 func GetBookById(w http.ResponseWriter, r *http.Request){
-	booksMutex.RLock()
-	defer booksMutex.RLock()
+	// booksMutex.RLock()
+	// defer booksMutex.RLock()
 	if len(books) == 0 {
 		log.Println("No books found")
 		w.WriteHeader(http.StatusNotFound)
@@ -86,8 +86,8 @@ var updateBook Book
 	json.NewEncoder(w).Encode(updateBook)
 }
 func DeleteBook(w http.ResponseWriter, r *http.Request){
-	booksMutex.Lock()
-	defer booksMutex.Unlock()
+	// booksMutex.Lock()
+	// defer booksMutex.Unlock()
 
 	id := r.URL.Query().Get("id")
 	_, ok := books[id]
