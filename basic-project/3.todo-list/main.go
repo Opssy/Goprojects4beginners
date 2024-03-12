@@ -8,15 +8,15 @@ import (
 	"strconv"
 )
 
-type task struct{
+type Task struct{
    Name string
    Completed bool 
 } 
 
-var tasks []task
+var tasks []Task
 
 func addTask(task string){
-	newTask := task{Name:task, Completed:false}
+	newTask := Task{Name:task, Completed:false}
 	tasks = append(tasks, newTask)
 
 	fmt.Println("Task added successfully")

@@ -2,6 +2,7 @@ package main
 
 import (
 	"encoding/json"
+	"fmt"
 	"log"
 	"net/http"
 	"strconv"
@@ -26,11 +27,12 @@ var(
 )
 
 func CreateBook(w http.ResponseWriter, r *http.Request){
-	booksMutex.Lock()
-	defer booksMutex.Unlock()
+
 	var book Book
 	_ = json.NewDecoder(r.Body).Decode(&book)
+	booksMutex.Lock()
 	books[book.ID] = book
+	booksMutex.Unlock()
 	json.NewEncoder(w).Encode(book)
 	w.WriteHeader(http.StatusCreated)
 }
@@ -41,6 +43,7 @@ func GetBook(w http.ResponseWriter, r *http.Request){
 	if len(books) == 0 {
 		log.Println("No books found")
 		w.WriteHeader(http.StatusNotFound)
+		
 		return
 	}
 	json.NewEncoder(w).Encode(books)
@@ -49,14 +52,19 @@ func GetBook(w http.ResponseWriter, r *http.Request){
 }
 
 func GetBookById(w http.ResponseWriter, r *http.Request){
-	// booksMutex.RLock()
-	// defer booksMutex.RLock()
+	
+	ids := r.URL.Query().Get("id")
 	if len(books) == 0 {
 		log.Println("No books found")
 		w.WriteHeader(http.StatusNotFound)
 		return
+	} 
+	id, err := strconv.Atoi(ids)
+
+	if err != nil{
+		fmt.Println('.')
 	}
-	id := r.URL.Query().Get("id")
+	// booksMutex.RLock()
 	book, ok := books[id]
 	if !ok {
 		log.Println("Book not found")
@@ -86,26 +94,20 @@ var updateBook Book
 	json.NewEncoder(w).Encode(updateBook)
 }
 func DeleteBook(w http.ResponseWriter, r *http.Request){
-	// booksMutex.Lock()
-	// defer booksMutex.Unlock()
+	booksMutex.Lock()
+	defer booksMutex.Unlock()
 
-	id := r.URL.Query().Get("id")
-	_, ok := books[id]
-	if !ok {
-		log.Println("Book not found")
-		w.WriteHeader(http.StatusNotFound)
-		return
-	}
-
-	intID, err := strconv.Atoi(id)
+	ids := r.URL.Query().Get("id")
+	id, err := strconv.Atoi(ids)
 		if err != nil {
 			log.Println("Invalid ID format")
 			w.WriteHeader(http.StatusBadRequest)
 			return
 		}
-
-	delete(books, intID)
-	w.WriteHeader(http.StatusOK)
+	if _,ok:= books[id];ok{
+       	delete(books, id)
+		w.WriteHeader(http.StatusOK)
+	}
 		
 }
 func main(){
