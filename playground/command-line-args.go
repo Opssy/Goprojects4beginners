@@ -5,8 +5,6 @@ import (
 	"os"
 )
 
-
-
 func main(){
 	var s, sep string 
 
