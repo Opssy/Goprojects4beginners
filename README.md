@@ -21,13 +21,15 @@ If you'd like to contribute to this list, follow these steps:
 We appreciate your contributions!
 
 ## Table of Contents
-
+   ## Basic projects
 1. [Project 1: Calculator](#project-1-calculator)
 2. [Project 2: Simple guessing game](#project-2-simple-guessing-game)
 3. [Project 3: todo-list](#project-3-todo-list)
 4. [Project 4: Web-scraper](#project-4-web-scraper)
    <!-- Add more projects here -->
-
+   ## Intermediate projects
+1. [Project 1: Restful-api](#project-1-restful-apo)
+   
 ## Project 1: Calculator
 
 - **Description:** Build a basic command-line calculator that can perform addition, subtraction, multiplication, and division.
@@ -50,6 +52,12 @@ We appreciate your contributions!
 
 - **Description:** Build a basic web scraper that extracts information from a website.
 - **Link:** [GitHub Repository](https://github.com/Opssy/Goprojects4beginners/tree/main/basic-project/4.web-scrapping)
+- **Skills Required:** Golang.
+
+   ## Project 5: Restful Api
+
+- **Description:** Create a RESTful API using the net/http package. Implement basic CRUD operations.
+- **Link:** [GitHub Repository](https://github.com/Opssy/Goprojects4beginners/tree/main/)
 - **Skills Required:** Golang.
 <!-- Add more projects with the same format -->
 
