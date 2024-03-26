@@ -41,13 +41,15 @@ func main(){
     router.PUT("/api/go/users/{id}", updateUser(db)).Methods("PUT")
     router.DELETE("/api/go/users/{id}", deleteUser(db)).Methods("DELETE")
 
+    log.Fatal(http.ListenAndServe(":8080", router))
 
 	router.GlobalOPTIONS = http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
     if r.Header.Get("Access-Control-Request-Method") != "" {
         // Set CORS headers
         header := w.Header()
-        header.Set("Access-Control-Allow-Methods", header.Get("Allow"))
         header.Set("Access-Control-Allow-Origin", "*")
+		header.Set("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS")
+        header.Set("Access-Control-Allow-Headers", "Content-Type, Authorization")
     }
 
     // Adjust status code to 204
@@ -59,3 +61,4 @@ func main(){
 	// router.DELETE("/books/:id", controller.DeleteBook)
 	
 }
+
