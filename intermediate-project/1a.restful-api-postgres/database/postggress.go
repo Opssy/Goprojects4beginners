@@ -25,7 +25,7 @@ func DatabaseConnection(){
 	dsn := fmt.Sprintf("host=%s port=%s user=%s dbname=%s password=%s sslmode=disable", host, port, dbUser, dbName, dbPass)
 
 
-	DB, err = gorm.Open(postgres.Open(dsn), &gorm.Config{})
+	DB, err := gorm.Open(postgres.Open(dsn), &gorm.Config{})
 	 DB.AutoMigrate(Book{})
 	if err != nil {
 		log.Fatal("Error connecting to database")
