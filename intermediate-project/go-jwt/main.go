@@ -1,13 +1,14 @@
 package main
 
 import (
+	"go-awt/model"
+	"go-awt/routes"
 	"log"
 	"os"
 
 	"github.com/gin-gonic/gin"
 	"github.com/joho/godotenv"
-	"intermediate-project/2.go-jwt/model"
-	"intermediate-project/2.go-jwt/routes"
+	// "gojwt/routes"
 )
 
 func main() {
@@ -24,19 +25,19 @@ func main() {
 			 log.Fatal("Error loading .env file")
 		}
 		config := model.Config{
-        Host:     os.Getenv("DB_HOST"),
-        Port:     os.Getenv("DB_PORT"),
-        User:     os.Getenv("DB_USER"),
-        Password: os.Getenv("DB_PASSWORD"),
-        DBName:   os.Getenv("DB_NAME"),
-        SSLMode:  os.Getenv("DB_SSLMODE"),
-    }
+			Host: os.Getenv("DB_HOST"),
+			Port: os.Getenv("DB_PORT"),
+			User: os.Getenv("DB_USER"),
+			Password: os.Getenv("DB_PASSWORD"),
+			DBName:   os.Getenv("DB_NAME"),
+			SSLMode:  os.Getenv("DB_SSLMODE"),
+		}
 
 	  // Initialize DB
       model.InitDB(config)
 
 	   // Load the routes
-    routes.AuthRoutes(r)
+	  routes.AuthRoutes(r)
 
     // Run the server
     r.Run(":8080")
