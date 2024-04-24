@@ -9,11 +9,7 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
-
-
-
 var jwtKey = []byte("my_secret_key")
-
 
 
 func Login(c *gin.Context){
@@ -60,4 +56,17 @@ func Login(c *gin.Context){
       }
 	  c.SetCookie("token", tokenString, int(expirationTime.Unix()), "/", "localhost", false, true)
       c.JSON(200, gin.H{"success": "user logged in"})
+}
+
+
+func Signup(c *gin.Context){
+	var user model.User
+
+
+	if err := c.ShouldBindJSON(&user); 
+
+	err != nil{
+		    c.JSON(400, gin.H{"error": err.Error()})
+          return
+	}
 }

@@ -3,7 +3,6 @@ package routes
 import (
     "go-jwt/controller"
     "github.com/gin-gonic/gin"
-	// "../intermediate-project/2.go-jwt/controller"
 )
 
 
